@@ -1,0 +1,73 @@
+{
+  "name": "MusicBot",
+  "description": "Open-Source bot to play songs in your Telegram's Group Voice Chat. Powered by PyTgCalls.",
+  "keywords": ["music", "voicechat", "telegram"],
+  "repository": "https://github.com/TheVaders/MusicBot",
+  "stack": "container",
+  "addons": [
+      {
+         "options": {
+            "version": "12"
+         },
+         "plan": "heroku-postgresql"
+      }
+  ],
+  "env": {
+    "SESSION_NAME": {
+      "description": "Pyrogram session string",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "A bot token from @BotFather",
+      "required": true
+    },
+    "BOT_NAME": {
+      "description": "The bot name you want",
+      "required": "false",
+      "value": "Ohto-Clone"
+    },
+    "BOT_USERNAME": {
+      "description": "Your Bot username without @, this is fcking necessary, if it doesn't matches bot username u won't be able to use inline", 
+      "required": true
+    }, 
+    "API_ID": {
+      "description": "App ID from my.telegram.org/apps",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "App hash from my.telegram.org/apps",
+      "required": true
+    }, 
+    "OWNER_ID": {
+      "description": "The bot owner id, it will send a message to your pm everytime someone adds bot", 
+      "required": true
+    },
+    "BOT_ID": {
+      "description": "needed to notify owner when bot is added in some group",
+      "required": false
+    }, 
+    "START_PIC": {
+      "description": "The pic to show in the start message, if not set default ohto-kun pic will be used", 
+      "required": false, 
+      "value": "https://telegra.ph/file/ff0b5f2df191253feb199.jpg"
+    },
+    "PLAY_PIC": {
+      "description": "The pic to be used while playing tg file, if not set default ohto-kun pic will be used", 
+      "required": false, 
+      "value": "https://telegra.ph/file/ff0b5f2df191253feb199.jpg"
+    }, 
+    "SUDO_USERS": {
+      "description": "List of user IDs counted as admin everywhere (separated by space).",
+      "required": true
+    },
+    "PROXY": {
+      "description": "A proxy, if you don't know what this means leave it",
+      "required": false
+    },
+    "DURATION_LIMIT": {
+      "description": "Max audio duration limit for downloads (minutes).",
+      "required": true,
+      "value": "10"
+    }
+  }
+}
