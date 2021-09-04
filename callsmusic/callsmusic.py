@@ -4,7 +4,6 @@ from pyrogram.raw import functions
 from pyrogram.utils import MAX_CHANNEL_ID
 from pytgcalls import PyTgCalls
 import config
-from . import queue
 import asyncio
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
