@@ -32,7 +32,7 @@ async def stream(client: Client, message: Message):
   m = await message.reply_text('Downloading....will take time depending on video size...')
   file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
   dl = await message.reply_to_message.download(file_name)
-  video, audio = converter.convert(dl)
+  video, audio = await converter.convert(dl)
   await m.edit("Joining...")
   await group_call.join_group_call(
     message.chat.id,
