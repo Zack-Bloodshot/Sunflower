@@ -50,7 +50,6 @@ async def stream(client: Client, message: Message):
         frame_rate=30,
         ),
       ),
-    group_call.cache_peer,
     stream_type=StreamType().local_stream,
   )
   await message.reply_text(f'Streaming ...')
