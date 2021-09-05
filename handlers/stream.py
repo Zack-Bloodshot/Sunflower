@@ -9,7 +9,6 @@ import converter
 from pyrogram.errors import PeerIdInvalid, ChannelInvalid
 from pyrogram.errors import exceptions
 from pyrogram.types import (InlineKeyboardMarkup, InlineKeyboardButton)
-from config import BOT_NAME as bn, DURATION_LIMIT
 from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.decorators import authorized_users_only
