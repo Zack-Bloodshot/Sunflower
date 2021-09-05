@@ -13,4 +13,3 @@ block_chat = []
 GROUP_CALL = {}
 FFMPEG_PRO = {}
           
-run = group_call.run

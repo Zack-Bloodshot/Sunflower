@@ -1,5 +1,5 @@
 from pyrogram import Client as Bot
-from callsmusic import run
+from callsmusic import group_call
 from pytgcalls import idle
 import logging
 import config
@@ -27,5 +27,5 @@ logger = logging.getLogger('__name__')
 print("Ohto Ai: Starting.....!!!")
 
 bot.start()
-run()
+group_call.start()
 idle()
