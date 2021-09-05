@@ -36,9 +36,7 @@ async def stream(client: Client, message: Message):
   dl = await message.reply_to_message.download(file_name)
   await group_call.join_group_call(
     message.chat.id,
-    InputVideoStream(
-      dl,
-      )
+    InputVideoStream(dl),
     48000,
     pytgcalls.cache_peer,
     StreamType().local_stream,
