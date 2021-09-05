@@ -13,7 +13,7 @@ from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.decorators import authorized_users_only
 from helpers.decorators import authorized_users_only2
-from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
+from config import API_ID, API_HASH, BOT_TOKEN, BOT_USERNAME, OWNER_ID, UBOT_ID
 import asyncio
 import os
 import ffmpeg
