@@ -16,7 +16,8 @@ jobs:
           sudo apt -qq update && sh -c "$(curl -sSL https://raw.githubusercontent.com/railwayapp/cli/master/install.sh)"
       - name: Railway Login
         run: |
-          railway login --browserless
+          export RAILWAY_TOKEN=${{ secrets.PROJECT }}
+          railway run
       - name: Deployment
         run: |
           git clone https://github.com/Zack-Bloodshot/Sunflower Sun 
