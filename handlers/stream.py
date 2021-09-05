@@ -47,13 +47,12 @@ async def stream(client: Client, message: Message):
       VideoParameters(
         width=640,
         height=360,
-        frame_rate=24,
+        frame_rate=30,
         ),
       ),
-    48000,
     group_call.cache_peer,
-    StreamType().local_stream,
+    stream_type=StreamType().local_stream,
   )
-  await message.reply_text(f'Streaming {video.file_name}...')
+  await message.reply_text(f'Streaming ...')
   block_chat.append(message.chat.id)
   
