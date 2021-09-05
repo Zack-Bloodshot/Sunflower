@@ -54,4 +54,10 @@ async def stream(client: Client, message: Message):
   )
   await message.reply_text(f'Streaming ...')
   block_chat.append(message.chat.id)
-  
+
+@Client.on_message('stop', f'stop{BOT_USERNAME}')  
+async def stop(_, message: Message):
+  if message.chat.id in block_chat:
+    await group_call.leave_group_call(message.chat.id)
+  else:
+    await message.reply_text('')
