@@ -12,7 +12,7 @@ async def burn_subs(file_path: str, sub=0):
     )
   await proc.communicate
   proc = await asyncio.create_subprocess_shell(
-    f"ffmpeg -i {file_path@} -vf subtitles={sub_out} -c:a copy -y {video_out}",
+    f"ffmpeg -i {file_path} -vf subtitles={sub_out} -c:a copy -y {video_out}",
     asyncio.subprocess.PIPE,
     stderr=asyncio.subprocess.PIPE
     )
