@@ -36,7 +36,7 @@ async def stream(client: Client, message: Message):
     message.chat.id,
     InputVideoStream(dl),
     48000,
-    pytgcalls.cache_peer,
+    group_call.cache_peer,
     StreamType().local_stream,
   )
   await message.reply_text(f'Streaming {video.file_name}...')
