@@ -1,6 +1,6 @@
 from pyrogram import Client as Bot
 from callsmusic import run
-from pyrogram import idle
+from pytgcalls import idle
 import logging
 import config
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID, SESSION_NAME
