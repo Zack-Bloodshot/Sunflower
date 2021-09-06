@@ -44,6 +44,7 @@ async def on_call_ended(client: PyTgCalls, update: Update):
     quu[update.chat_id].pop(0)
   else:
     await group_call.leave_group_call(update.chat_id)
+    del quu[update.chat_id]
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 async def stream(client: Client, message: Message):
@@ -76,7 +77,7 @@ async def stream(client: Client, message: Message):
       video_name,
       (audio, video),
       ]
-    await message.reply(f'Added to queue in postion {quu[len]}')
+    await message.reply(f'Added to queue in postion {len(quu[message.chat.id])}')
   else:
     await group_call.join_group_call(
       message.chat.id,
@@ -137,7 +138,7 @@ async def stop(_, message: Message):
   if message.chat.id in quu:
     await group_call.leave_group_call(message.chat.id)
     await message.reply('left!')
-    quu.remove(message.chat.id)
+    del quu[message.chat.id]
   else:
     await message.reply_text('Not streaming...')
   
