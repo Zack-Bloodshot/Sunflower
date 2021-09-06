@@ -14,7 +14,7 @@ BOT_NAME = getenv("BOT_NAME")
 
 OWNER_ID = int(getenv("OWNER_ID")) 
 
-UBOT_ID = int(getenv("BOT_ID"))
+#UBOT_ID = int(getenv("BOT_ID"))
 
 API_ID = int(getenv("API_ID"))
 
