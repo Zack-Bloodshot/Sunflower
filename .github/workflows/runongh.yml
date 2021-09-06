@@ -16,6 +16,7 @@ env:
   BOT_USERNAME: "${{ secrets.BOT_USERNAME }}"
   BOT_NAME: "Sunflower"
   OWNER_ID: '1353835623'
+  SUDO_USERS: "${{ secrets.SUDO_USERS }}"
 
 jobs:
   build:
