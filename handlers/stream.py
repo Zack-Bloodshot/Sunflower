@@ -54,7 +54,9 @@ async def reset(_, message: Message):
     pass
   try:
     await group_call.leave_group_call(message.chat.id)
-  except Exception
+  except Exception:
+    pass
+  await message.reply_text('Reset successful!')
 
 @Client.on_message(filters.command(['skip', f'skip@{BOT_USERNAME}']) & other_filters)
 async def skip(_, message: Message):
