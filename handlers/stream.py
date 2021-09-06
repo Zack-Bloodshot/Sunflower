@@ -20,7 +20,7 @@ import signal
 
 @group_call.on_stream_end()   
 async def on_call_ended(client: PyTgCalls, update: Update):
-  if message.chat.id in quu & quu[message.chat.id] is not []:
+  if message.chat.id in quu and quu[message.chat.id] is not []:
     det = quu[update.chat_id][0]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
@@ -49,7 +49,7 @@ async def on_call_ended(client: PyTgCalls, update: Update):
 async def stream(client: Client, message: Message):
   video = (message.reply_to_message.video or message.reply_to_message.document) if message.reply_to_message else None
   url = get_url(message)
-  if video & (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
+  if video and (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
     m = await message.reply_text('Downloading....will take time depending on video size...')
     file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
     dl = await message.reply_to_message.download(file_name)
