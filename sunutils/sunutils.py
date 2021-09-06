@@ -17,7 +17,7 @@ FFMPEG_PRO = {}
 async def yt_download(ytlink):
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]',
-        'outtmpl': '%(title)s - %(extractor)s-%(id)s.%(ext)s',
+        'outtmpl': '%(id)s-%(extractor)s.%(ext)s',
         'writethumbnail': False
     }
     with YoutubeDL(ydl_opts) as ydl:

@@ -20,7 +20,7 @@ import signal
 
 @group_call.on_stream_end()   
 async def on_call_ended(client: PyTgCalls, update: Update):
-  if message.chat.id in quu and quu[message.chat.id] is not []:
+  if update.chat.id in quu and quu[update.chat.id] is not []:
     det = quu[update.chat_id][0]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
@@ -45,6 +45,49 @@ async def on_call_ended(client: PyTgCalls, update: Update):
   else:
     await group_call.leave_group_call(update.chat_id)
     del quu[update.chat_id]
+
+@Client.on_message(filters.command(['reset', f'reset@{BOT_USERNAME}']) & other_filters)
+async def reset(_, message: Message):
+  try:
+    del quu[message.chat.id] 
+  except Exception:
+    pass
+  try:
+    await group_call.leave_group_call(message.chat.id)
+  except Exception
+
+@Client.on_message(filters.command(['skip', f'skip@{BOT_USERNAME}']) & other_filters)
+async def skip(_, message: Message):
+  if message.chat.id in quu and quu[message.chat.id] is not []:
+    det = quu[message.chat_id][0]
+    audio, video = det[1][0], det[1][1]
+    await group_call.change_stream(
+      message.chat_id,
+      InputAudioStream(
+        audio,
+        AudioParameters(
+          bitrate=48000,
+          ),
+        ),
+      InputVideoStream(
+        video,
+        VideoParameters(
+          width=640,
+          height=360,
+          frame_rate=30,
+          ),
+        ),
+      stream_type=StreamType().local_stream,
+    )
+    await message.reply_text(f'Skipped to {det[0]}')
+    quu[message.chat_id].pop(0)
+  else:
+    try:
+      await group_call.leave_group_call(message.chat.id)
+      del quu[message.chat.id] 
+    except Exception:
+      pass 
+    await message.reply_text('Nothing to skip!')
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 async def stream(client: Client, message: Message):
