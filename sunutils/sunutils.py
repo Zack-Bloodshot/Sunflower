@@ -5,7 +5,7 @@ from pyrogram.utils import MAX_CHANNEL_ID
 from pytgcalls import PyTgCalls
 import config
 import asyncio
-from youtube-dl import YoutubeDL
+from youtube_dl import YoutubeDL
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 group_call = PyTgCalls(client)
