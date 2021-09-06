@@ -4,6 +4,7 @@ from youtube_search import YoutubeSearch
 from sunutils import group_call, quu, block_chat, FFMPEG_PRO, yt_download
 import sunutils
 from pytgcalls import PyTgCalls
+from pytgcalls.types import Update
 from pytgcalls.types.input_stream import InputVideoStream, VideoParameters, InputAudioStream, AudioParameters
 from pytgcalls import StreamType
 import converter
