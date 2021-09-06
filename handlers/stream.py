@@ -49,7 +49,7 @@ async def on_call_ended(client: PyTgCalls, update: Update):
 async def stream(client: Client, message: Message):
   video = (message.reply_to_message.video or message.reply_to_message.document) if message.reply_to_message else None
   url = get_url(message)
-  if (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
+  if video & (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
     m = await message.reply_text('Downloading....will take time depending on video size...')
     file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
     dl = await message.reply_to_message.download(file_name)
