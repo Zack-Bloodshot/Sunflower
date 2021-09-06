@@ -66,8 +66,8 @@ async def stream(client: Client, message: Message):
     video_name = video.file_name.split('.', 1)[0]
     audio, video = await converter.convert(dl)
   elif url:
-    yt, video_name = yt_download(url)
-    audio, video = converter.convert(yt)
+    yt, video_name = await yt_download(url)
+    audio, video = await converter.convert(yt)
   await m.edit("Joining...")
   if message.chat.id in quu:
     quu[message.chat.id] = [
