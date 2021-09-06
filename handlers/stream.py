@@ -17,7 +17,7 @@ from config import BOT_USERNAME
 import os
 import signal
 
-@group_call.on_call_ended()   
+@group_call.on_stream_ended()   
 async def on_call_ended(client: PyTgCalls, update: Update):
   if message.chat.id in quu & quu[message.chat.id] is not []:
     det = quu[update.chat_id][0]
