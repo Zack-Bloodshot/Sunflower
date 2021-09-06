@@ -1,5 +1,5 @@
 from pyrogram import Client as Bot
-from callsmusic import group_call
+from sunutils import group_call
 from pytgcalls import idle
 import logging
 import config
