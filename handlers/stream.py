@@ -36,7 +36,7 @@ async def on_call_ended(client: PyTgCalls, update: Update):
         VideoParameters(
           width=640,
           height=360,
-          frame_rate=25,
+          frame_rate=20,
           ),
         ),
       stream_type=StreamType().local_stream,
@@ -58,7 +58,7 @@ async def on_call_ended(client: PyTgCalls, update: Update):
         VideoParameters(
           height=640,
           width=360,
-          frame_rate=25,
+          frame_rate=20,
           ),
         ),
       stream_type=StreamType().local_stream
@@ -95,7 +95,7 @@ async def skip(_, message: Message):
         VideoParameters(
           width=640,
           height=360,
-          frame_rate=25,
+          frame_rate=20,
           ),
         ),
       stream_type=StreamType().local_stream,
@@ -137,10 +137,10 @@ async def stream(client: Client, message: Message):
     audio, video = await converter.convert(yt)
   await m.edit("Joining...")
   if message.chat.id in quu:
-    quu[message.chat.id] = [
+    quu[message.chat.id].append([
       video_name,
       (audio, video),
-      ]
+      ])
     await message.reply(f'Added to queue in postion {len(quu[message.chat.id])}')
   else:
     await group_call.join_group_call(
@@ -156,12 +156,13 @@ async def stream(client: Client, message: Message):
         VideoParameters(
           width=640,
           height=360,
-          frame_rate=25,
+          frame_rate=20,
           ),
         ),
       stream_type=StreamType().local_stream,
     )
-    quu[message.chat.id] = [video_name, (audio, video)]
+    quu[message.chat.id] = []
+    quu[message.chat.id].append([video_name, (audio, video)])
     await message.reply_text(f'Streaming ...')
 
 @Client.on_message(filters.command(['live', f'live@{BOT_USERNAME}']) & other_filters)

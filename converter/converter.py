@@ -12,6 +12,8 @@ async def burn_subs(file_path: str, sub=0):
   sub_out = str(file_path).split('.', 1)[0] + 'sub.ass'
   video_ext = str(file_path).split('.', 1)[1]
   video_out = str(file_path).split('.', 1)[0] + f'_burnsubs.{video_ext}'
+  if os.path.isfile(video_out):
+    return video_out
   proc = await asyncio.create_subprocess_shell(
     f"ffmpeg -i {file_path} -map 0:s:{sub} {sub_out}",
     asyncio.subprocess.PIPE,
