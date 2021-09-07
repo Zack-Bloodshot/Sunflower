@@ -124,16 +124,14 @@ async def stream(client: Client, message: Message):
         try:
           configg = subska.split(':')
           subconfig = configg[1]
-          langconfig = config[2]
         except IndexError:
           subconfig = 0
-          langconfig = 0
         await m.edit('Burning subs!.., who knows how much time will it take..')
         dl = await converter.burn_subs(dl, sub=subconfig)
     except IndexError:
       pass
     video_name = video.file_name.split('.', 1)[0]
-    audio, video = await converter.convert(dl, audio=langconfig if langconfig else 0)
+    audio, video = await converter.convert(dl)
   elif url:
     m = await message.reply('Downloading..')
     yt, video_name = await yt_download(url)
