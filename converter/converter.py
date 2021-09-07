@@ -38,7 +38,7 @@ async def convert(file_path: str, dell=True) -> str:
         return out_audio, out_video
   
     proc = await asyncio.create_subprocess_shell(
-        f"ffmpeg -i {file_path} -f s16le -ac 1 -ar 48000 {out_audio} -f rawvideo -r 30 -pix_fmt yuv420p -vf scale=640:-1 {out_video}",
+        f"ffmpeg -i {file_path} -f s16le -ac 1 -ar 48000 {out_audio} -f rawvideo -r 20 -pix_fmt yuv420p -vf scale=640:-1 {out_video}",
         asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
@@ -49,7 +49,7 @@ async def convert(file_path: str, dell=True) -> str:
     return out_audio, out_video
 
 def live_converter(source, vid, audio):
-    cmd = ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", source, "-f", "s16le", "-ac", "1", "-ar", "48000", audio, "-f", "rawvideo", '-r', '25', '-pix_fmt', 'yuv420p', '-vf', 'scale=640:-1', vid]
+    cmd = ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", source, "-f", "s16le", "-ac", "1", "-ar", "48000", audio, "-f", "rawvideo", '-r', '20', '-pix_fmt', 'yuv420p', '-vf', 'scale=640:-1', vid]
     return subprocess.Popen(
         cmd,
         stdin=None,
