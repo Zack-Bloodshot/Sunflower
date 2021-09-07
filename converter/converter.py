@@ -9,7 +9,7 @@ async def get_video_info(file_path):
     return json.loads(stdout)
 
 async def burn_subs(file_path: str, sub=0):
-  sub_out = str(file_path).split('.', 1)[0] + 'sub.srt'
+  sub_out = str(file_path).split('.', 1)[0] + 'sub.ass'
   video_ext = str(file_path).split('.', 1)[1]
   video_out = str(file_path).split('.', 1)[0] + f'_burnsubs.{video_ext}'
   proc = await asyncio.create_subprocess_shell(

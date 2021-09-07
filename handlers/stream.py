@@ -20,8 +20,8 @@ import signal
 
 @group_call.on_stream_end()   
 async def on_call_ended(client: PyTgCalls, update: Update):
-  if update.chat.id in quu and quu[update.chat.id] is not []:
-    det = quu[update.chat_id][0]
+  if update.chat.id in quu and len(quu[update.chat.id]) is not 1:
+    det = quu[update.chat_id][1]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
       update.chat_id,
@@ -36,15 +36,34 @@ async def on_call_ended(client: PyTgCalls, update: Update):
         VideoParameters(
           width=640,
           height=360,
-          frame_rate=30,
+          frame_rate=25,
           ),
         ),
       stream_type=StreamType().local_stream,
     )
     quu[update.chat_id].pop(0)
   else:
-    await group_call.leave_group_call(update.chat_id)
-    del quu[update.chat_id]
+    loop_stream = quu[update.chat_id][0]
+    audio, video = loop_stream[1][0], loop_stream[1][1]
+    await group_call.change_stream(
+      update.chat.id,
+      InputAudioStream(
+        audio,
+        AudioParameters(
+          48000,
+          ),
+        ),
+      InputVideoStream(
+        video,
+        VideoParameters(
+          height=640,
+          width=360,
+          frame_rate=25,
+          ),
+        ),
+      stream_type=StreamType().local_stream
+      )
+    #del quu[update.chat_id]
 
 @Client.on_message(filters.command(['reset', f'reset@{BOT_USERNAME}']) & other_filters)
 async def reset(_, message: Message):
@@ -60,8 +79,8 @@ async def reset(_, message: Message):
 
 @Client.on_message(filters.command(['skip', f'skip@{BOT_USERNAME}']) & other_filters)
 async def skip(_, message: Message):
-  if message.chat.id in quu and quu[message.chat.id] is not []:
-    det = quu[message.chat_id][0]
+  if message.chat.id in quu and len(quu[message.chat.id]) is not 1:
+    det = quu[message.chat_id][1]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
       message.chat_id,
@@ -76,7 +95,7 @@ async def skip(_, message: Message):
         VideoParameters(
           width=640,
           height=360,
-          frame_rate=30,
+          frame_rate=25,
           ),
         ),
       stream_type=StreamType().local_stream,
@@ -106,7 +125,7 @@ async def stream(client: Client, message: Message):
           subconfig = subska.split(':')[1]
         except IndexError:
           subconfig = 0 
-        await m.edit('Burning subs!..')
+        await m.edit('Burning subs!.., who knows how much time will it take..')
         dl = await converter.burn_subs(dl, sub=subconfig)
     except IndexError:
       pass
@@ -137,12 +156,12 @@ async def stream(client: Client, message: Message):
         VideoParameters(
           width=640,
           height=360,
-          frame_rate=30,
+          frame_rate=25,
           ),
         ),
       stream_type=StreamType().local_stream,
     )
-    quu[message.chat.id] = []
+    quu[message.chat.id] = [video_name, (audio, video)]
     await message.reply_text(f'Streaming ...')
 
 @Client.on_message(filters.command(['live', f'live@{BOT_USERNAME}']) & other_filters)
