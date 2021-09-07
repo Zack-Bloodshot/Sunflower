@@ -20,7 +20,7 @@ import signal
 
 @group_call.on_stream_end()   
 async def on_call_ended(client: PyTgCalls, update: Update):
-  if update.chat.id in quu and len(quu[update.chat.id]) is not 1:
+  if update.chat.id in quu and len(quu[update.chat.id]) is != 1:
     det = quu[update.chat_id][1]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
@@ -120,17 +120,20 @@ async def stream(client: Client, message: Message):
     dl = await message.reply_to_message.download(file_name)
     try:
       subska = message.text.split(' ', 1)[1]
-      if subska.startswith('subs'):
+      if subska.startswith('atr'):
         try:
-          subconfig = subska.split(':')[1]
+          configg = subska.split(':')
+          subconfig = configg[1]
+          langconfig = config[2]
         except IndexError:
-          subconfig = 0 
+          subconfig = 0
+          langconfig = 0
         await m.edit('Burning subs!.., who knows how much time will it take..')
         dl = await converter.burn_subs(dl, sub=subconfig)
     except IndexError:
       pass
     video_name = video.file_name.split('.', 1)[0]
-    audio, video = await converter.convert(dl)
+    audio, video = await converter.convert(dl, audio=langconfig if langconfig else 0)
   elif url:
     m = await message.reply('Downloading..')
     yt, video_name = await yt_download(url)

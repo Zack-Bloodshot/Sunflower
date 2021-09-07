@@ -20,25 +20,27 @@ async def burn_subs(file_path: str, sub=0):
     stderr=asyncio.subprocess.PIPE
     )
   await proc.communicate()
+  print('Burning subs...')
   proc = await asyncio.create_subprocess_shell(
-    f"ffmpeg -i {file_path} -vf subtitles={sub_out} -c:a copy -y {video_out}",
-    asyncio.subprocess.PIPE,
+    f"ffmpeg -i {file_path} -vf subtitles={sub_out} {video_out}",
+    stdout=asyncio.subprocess.PIPE,
     stderr=asyncio.subprocess.PIPE
     )
-  print('Burning subs...')
   await proc.communicate()
+  async for i in await proc.stdout:
+    print(i)
   os.remove(file_path)
   return video_out
   
 
-async def convert(file_path: str, dell=True) -> str:
+async def convert(file_path: str, dell=True, audio=0) -> str:
     out_audio = str(file_path).split('.', 1)[0] + 'audio.raw'
     out_video = str(file_path).split('.', 1)[0] + 'video.raw'
     if os.path.isfile(out_audio) & os.path.isfile(out_video):
         return out_audio, out_video
   
     proc = await asyncio.create_subprocess_shell(
-        f"ffmpeg -i {file_path} -f s16le -ac 1 -ar 48000 {out_audio} -f rawvideo -r 20 -pix_fmt yuv420p -vf scale=640:-1 {out_video}",
+        f"ffmpeg -i {file_path} -f s16le -ac 1 -ar 48000 -map 0:a:{audio} {out_audio} -f rawvideo -r 20 -pix_fmt yuv420p -vf scale=640:-1 {out_video}",
         asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
