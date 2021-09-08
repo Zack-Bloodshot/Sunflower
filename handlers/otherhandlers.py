@@ -7,9 +7,9 @@ from youtubesearchpython import VideosSearch
 import converter
 import config 
 
-@Client.on_message(command("start") & other_filters2)
+@Client.on_message(command("start") & other_filters)
 async def start(_, message: Message):
-    await message.reply_text('Im sunflower ~ by @HeyDoUKnowMe')
+    await message.reply_text('Im sunflower ~')
 
 @Client.on_inline_query()
 async def inline(client: Client, query: InlineQuery):
