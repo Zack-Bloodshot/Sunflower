@@ -19,9 +19,12 @@ bot = Bot(
 )
 
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO, filename='bot.log', filemode='w')
 logger = logging.getLogger('__name__') 
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
 
+logging.getLogger().addHandler(console)
 
 print("Ohto Ai: Starting.....!!!")
 

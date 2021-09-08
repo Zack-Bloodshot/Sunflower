@@ -5,6 +5,7 @@ from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessa
 from config import BOT_USERNAME 
 from youtubesearchpython import VideosSearch
 import converter
+import config 
 
 @Client.on_message(command("start") & other_filters2)
 async def start(_, message: Message):
@@ -66,3 +67,10 @@ async def subsend(_, message: Message):
     await m.edit('Uploading....')
     await message.reply_document(ff)
     await m.delete()
+    
+@Client.on_message(filters.command(['logs', f'logs@{BOT_USERNAME}']))
+async def logsend(_, message: Message):
+  try:
+    await message.reply_document(document='bot.log')
+  except BaseException:
+    await message.reply('Some error happend..F')
