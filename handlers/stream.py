@@ -39,7 +39,6 @@ async def on_call_ended(client: PyTgCalls, update: Update):
           frame_rate=20,
           ),
         ),
-      stream_type=StreamType().local_stream,
     )
     quu[update.chat_id].pop(0)
   else:
@@ -61,7 +60,6 @@ async def on_call_ended(client: PyTgCalls, update: Update):
           frame_rate=20,
           ),
         ),
-      stream_type=StreamType().local_stream
       )
     #del quu[update.chat_id]
 
@@ -98,7 +96,6 @@ async def skip(_, message: Message):
           frame_rate=20,
           ),
         ),
-      stream_type=StreamType().local_stream,
     )
     await message.reply_text(f'Skipped to {det[0]}')
     quu[message.chat_id].pop(0)
