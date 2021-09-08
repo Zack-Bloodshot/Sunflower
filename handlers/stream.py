@@ -117,10 +117,10 @@ async def stream(client: Client, message: Message):
   if video and (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
     m = await message.reply_text('Downloading....will take time depending on video size...')
     file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
-    if (os.path.exists(f'downloads/{file_name}_audio.raw') and os.path.except(f'downloads/{file_name}_video.raw')):
+    if (os.path.exists(f'downloads/{file_name}_audio.raw') and os.path.exists(f'downloads/{file_name}_video.raw')):
       audio = f'downloads/{file_name}_audio.raw'
       video = f'downloads/{file_name}_video.raw'
-    elif (os.path.exists(f'downloads/{file_name}_burned_audio.raw') and os.path.except(f'downloads/{file_name}_burned_video.raw')):
+    elif (os.path.exists(f'downloads/{file_name}_burned_audio.raw') and os.path.exists(f'downloads/{file_name}_burned_video.raw')):
       audio = f'downloads/{file_name}_burned_audio.raw'
       video = f'downloads/{file_name}_burned_video.raw'
     else:
