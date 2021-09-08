@@ -20,7 +20,7 @@ import signal
 
 @group_call.on_stream_end()   
 async def on_call_ended(client: PyTgCalls, update: Update):
-  if (update.chat.id in quu and len(quu[update.chat.id]) != 1):
+  if (update.chat_id in quu and len(quu[update.chat_id]) != 1):
     det = quu[update.chat_id][1]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
@@ -46,7 +46,7 @@ async def on_call_ended(client: PyTgCalls, update: Update):
     loop_stream = quu[update.chat_id][0]
     audio, video = loop_stream[1][0], loop_stream[1][1]
     await group_call.change_stream(
-      update.chat.id,
+      update.chat_id,
       InputAudioStream(
         audio,
         AudioParameters(
