@@ -27,8 +27,6 @@ async def burn_subs(file_path: str, sub=0):
     stderr=asyncio.subprocess.PIPE
     )
   await proc.communicate()
-  async for i in await proc.stdout:
-    print(i)
   os.remove(file_path)
   return video_out
   
