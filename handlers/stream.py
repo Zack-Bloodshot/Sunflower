@@ -79,7 +79,7 @@ async def reset(_, message: Message):
 
 @Client.on_message(filters.command(['skip', f'skip@{BOT_USERNAME}']) & other_filters)
 async def skip(_, message: Message):
-  if message.chat.id in quu and len(quu[message.chat.id]) is not 1:
+  if message.chat.id in quu and len(quu[message.chat.id]) != 1:
     det = quu[message.chat_id][1]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
