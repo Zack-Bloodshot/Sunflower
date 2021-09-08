@@ -72,5 +72,6 @@ async def subsend(_, message: Message):
 async def logsend(_, message: Message):
   try:
     await message.reply_document(document='bot.log')
+    os.remove('bot.log')
   except BaseException:
     await message.reply('Some error happend..F')
