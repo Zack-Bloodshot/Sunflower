@@ -4,7 +4,6 @@ from pytgcalls import idle
 import logging
 import config
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID, SESSION_NAME
-from Summon.summon import temo
 import time
 import asyncio
 
