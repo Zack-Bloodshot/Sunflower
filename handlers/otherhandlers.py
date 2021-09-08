@@ -1,5 +1,5 @@
 from helpers.filters import command, other_filters2, other_filters
-from pyrogram import Client
+from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 from config import BOT_USERNAME 
