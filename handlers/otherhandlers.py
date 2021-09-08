@@ -1,9 +1,10 @@
-from helpers.filters import command, other_filters2
+from helpers.filters import command, other_filters2, other_filters
 from pyrogram import Client
 from pyrogram.types import Message
 from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 from config import BOT_USERNAME 
 from youtubesearchpython import VideosSearch
+import converter
 
 @Client.on_message(command("start") & other_filters2)
 async def start(_, message: Message):
@@ -54,4 +55,14 @@ async def inline(client: Client, query: InlineQuery):
                 switch_pm_text="Error: Search timed out",
                 switch_pm_parameter="",
             )
-    
+            
+@Client.on_message(filters.command(['sub', f'sub@{BOT_USERNAME}']), other_filters)
+async def subsend(_, message: Message):
+  video = (message.reply_to_message.video or message.reply_to_message.document) if message.reply_to_message else None
+  if video:
+    dl = await video.dowmload()
+    m = await message.reply_message('Burning subs...')
+    ff = await converter.burn_subs(dl)
+    await m.edit('Uploading....')
+    await message.reply_document(ff)
+    await m.delete()

@@ -20,7 +20,7 @@ import signal
 
 @group_call.on_stream_end()   
 async def on_call_ended(client: PyTgCalls, update: Update):
-  if update.chat.id in quu and len(quu[update.chat.id]) != 1:
+  if (update.chat.id in quu and len(quu[update.chat.id]) != 1):
     det = quu[update.chat_id][1]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
@@ -79,7 +79,7 @@ async def reset(_, message: Message):
 
 @Client.on_message(filters.command(['skip', f'skip@{BOT_USERNAME}']) & other_filters)
 async def skip(_, message: Message):
-  if message.chat.id in quu and len(quu[message.chat.id]) != 1:
+  if (message.chat.id in quu and len(quu[message.chat.id]) != 1):
     det = quu[message.chat_id][1]
     audio, video = det[1][0], det[1][1]
     await group_call.change_stream(
@@ -117,21 +117,28 @@ async def stream(client: Client, message: Message):
   if video and (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
     m = await message.reply_text('Downloading....will take time depending on video size...')
     file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
-    dl = await message.reply_to_message.download(file_name)
-    try:
-      subska = message.text.split(' ', 1)[1]
-      if subska.startswith('atr'):
-        try:
-          configg = subska.split(':')
-          subconfig = configg[1]
-        except IndexError:
-          subconfig = 0
-        await m.edit('Burning subs!.., who knows how much time will it take..')
-        dl = await converter.burn_subs(dl, sub=subconfig)
-    except IndexError:
-      pass
-    video_name = video.file_name.split('.', 1)[0]
-    audio, video = await converter.convert(dl)
+    if (os.path.exists(f'downloads/{file_name}_audio.raw') and os.path.except(f'downloads/{file_name}_video.raw')):
+      audio = f'downloads/{file_name}_audio.raw'
+      video = f'downloads/{file_name}_video.raw'
+    elif (os.path.exists(f'downloads/{file_name}_burned_audio.raw') and os.path.except(f'downloads/{file_name}_burned_video.raw')):
+      audio = f'downloads/{file_name}_burned_audio.raw'
+      video = f'downloads/{file_name}_burned_video.raw'
+    else:
+      dl = await message.reply_to_message.download(file_name)
+      try:
+        subska = message.text.split(' ', 1)[1]
+        if subska.startswith('atr'):
+          try:
+            configg = subska.split(':')
+            subconfig = configg[1]
+          except IndexError:
+            subconfig = 0
+          await m.edit('Burning subs!.., who knows how much time will it take..')
+          dl = await converter.burn_subs(dl, sub=subconfig)
+      except IndexError:
+        pass
+      video_name = video.file_name.split('.', 1)[0]
+      audio, video = await converter.convert(dl)
   elif url:
     m = await message.reply('Downloading..')
     yt, video_name = await yt_download(url)

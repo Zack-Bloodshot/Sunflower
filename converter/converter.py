@@ -34,8 +34,8 @@ async def burn_subs(file_path: str, sub=0):
   
 
 async def convert(file_path: str, dell=True, audio=0) -> str:
-    out_audio = str(file_path).split('.', 1)[0] + 'audio.raw'
-    out_video = str(file_path).split('.', 1)[0] + 'video.raw'
+    out_audio = str(file_path).split('.', 1)[0] + '_audio.raw'
+    out_video = str(file_path).split('.', 1)[0] + '_video.raw'
     if os.path.isfile(out_audio) & os.path.isfile(out_video):
         return out_audio, out_video
   
